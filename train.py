@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from data import load_mnist, splits
 from model import CNN
-from eval import predict
+from eval import predict, get_accuracy
 from utils import set_seed, get_device
 
 num_epochs = 5
@@ -47,10 +47,9 @@ if __name__ == "__main__":
     model = train_model(train, num_epochs=5, device=device)
 
     print("\n--Test accuracy--")
-    for name, ds in [("retain digits", test_retain), ("7s", test_forget), ("all", test)]:
-        preds, labels = predict(model, ds, device)
-
-        print(f"{name}: {accuracy_score(labels, preds):.4f}")
+    print(f"Retain digits: {get_accuracy(model, test_retain, device):.4f}")
+    print(f"Digit 7: {get_accuracy(model, test_forget, device):.4f}")
+    print(f"All digits: {get_accuracy(model, test, device):.4f}\n")
 
     preds, labels = predict(model, test, device)
     cm = confusion_matrix(labels, preds, labels=list(range(10)))
