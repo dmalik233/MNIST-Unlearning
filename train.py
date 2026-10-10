@@ -51,14 +51,5 @@ if __name__ == "__main__":
     print(f"Digit 7: {get_accuracy(model, test_forget, device):.4f}")
     print(f"All digits: {get_accuracy(model, test, device):.4f}\n")
 
-    preds, labels = predict(model, test, device)
-    cm = confusion_matrix(labels, preds, labels=list(range(10)))
-    print(cm)
-
-    ConfusionMatrixDisplay(cm, display_labels=range(10)).plot(cmap="Blues")
-    plt.title("Original Model")
-    plt.savefig("results/cm_original_model.png")
-    plt.close()
-
     torch.save(model.state_dict(), "checkpoints/original_model.pt")
     print("Original model checkpoint saved.")
