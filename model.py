@@ -22,3 +22,10 @@ class CNN(nn.Module):
     def forward(self, x):
         x = self.features(x)
         return self.fc2(x)
+
+
+# 1 28 28
+# 16 28 28
+# 16 14 14 
+# 32 14 14
+# 32 7 7

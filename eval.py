@@ -31,6 +31,17 @@ def get_probs(model, dataset, device):
 
     return torch.cat(probs)
 
+def get_features(model, dataset, device):
+    model.eval()
+    features, labels = [], []
+
+    for x, y in DataLoader(dataset, batch_size=batch_size):
+        with torch.no_grad():
+            features.append(model.features(x.to(device)).cpu())
+            labels.append(y)
+
+    return torch.cat(features).numpy(), torch.cat(labels).numpy()
+
 def pred_distribution(model, dataset, device):
     preds, _ = predict(model, dataset, device)
     return np.bincount(preds, minlength=10)/len(preds)

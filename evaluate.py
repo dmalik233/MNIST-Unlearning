@@ -26,7 +26,6 @@ def report(m_type, model, reference, test_retain, test_forget, device):
     file_name = m_type.lower().replace(" ", "_")
     save_confusion_matrix(model, full_test, device, m_type, f"results/cm_{file_name}.png")
 
-
 if __name__ == "__main__":
 
     device = get_device()
@@ -34,7 +33,10 @@ if __name__ == "__main__":
     original = load_model("checkpoints/original_model.pt", device)
     retrained = load_model("checkpoints/retrained_model.pt", device)
     grad_asc = load_model("checkpoints/unlearn_gradient_ascent.pt", device)
+    bad_teacher = load_model("checkpoints/unlearn_bad_teacher.pt", device)
 
     report("Original", original, retrained, test_retain, test_forget, device)
     report("Retrained", retrained, retrained, test_retain, test_forget, device)
     report("Gradient ascent", grad_asc, retrained, test_retain, test_forget, device)
+    report("Bad teacher", bad_teacher, retrained, test_retain, test_forget, device)
+    
