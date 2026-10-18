@@ -4,7 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
 from data import load_mnist, forget_digit
-from eval import get_features
+from evalutils import get_features
 from utils import get_device, load_model, set_seed
 
 def linear_probe(model, train, test, device):
@@ -16,7 +16,7 @@ def linear_probe(model, train, test, device):
 
     probe = make_pipeline(
         StandardScaler(),
-        LogisticRegression(class_weight="balanced", max_iter=1000),
+        LogisticRegression(class_weight="balanced", max_iter=1000, random_state=42),
     )
     probe.fit(x_train, y_train)
 
@@ -34,7 +34,9 @@ if __name__=="__main__":
         "Original": "checkpoints/original_model.pt",
         "Retrained": "checkpoints/retrained_model.pt",
         "Gradient ascent": "checkpoints/unlearn_gradient_ascent.pt",
-        "Bad teacher": "checkpoints/unlearn_bad_teacher.pt"
+        "Bad teacher": "checkpoints/unlearn_bad_teacher.pt",
+        "Fisher Method (hard)": "checkpoints/unlearn_fisher_prune_hard.pt",
+        "Fisher Method (reset)": "checkpoints/unlearn_fisher_prune_reset.pt"
     }
 
     for name, path in models.items():

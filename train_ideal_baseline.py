@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 
 from data import load_mnist, splits
-from eval import predict, get_accuracy
+from evalutils import predict, get_accuracy
 from utils import set_seed, get_device
 from train import train_model
 
@@ -26,4 +26,3 @@ if __name__ == "__main__":
 
     torch.save(model.state_dict(), "checkpoints/retrained_model.pt")
     print("Retrained model checkpoint saved.")
-

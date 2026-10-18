@@ -1,12 +1,10 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
 
 from data import load_mnist, splits
 from model import CNN
-from eval import predict, get_accuracy
+from evalutils import predict, get_accuracy
 from utils import set_seed, get_device
 
 num_epochs = 5
