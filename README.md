@@ -2,7 +2,7 @@
 
 An empirical study and PyTorch implementation of **Class-Level Machine Unlearning** on MNIST (forgetting digit `7`). 
 
-Standard unlearning evaluations frequently stop at checking whether test accuracy on the forgotten class drops to `0%`. This project demonstrates why **output-space metrics are insufficient**: common baseline methods like **Gradient Ascent** and **Bad Teacher Distillation** merely scramble the final classification head (`fc2`) while leaving internal feature representations (`conv2`, `fc1`) intact. 
+This project demonstrates why **output-space metrics are insufficient** for unlearning tasks. We see that common baseline methods like **Gradient Ascent** and **Bad Teacher Distillation** merely scramble the final classification head (`fc2`) while leaving internal feature representations (`conv2`, `fc1`) intact. 
 
 To achieve structural unlearning, we implement **Fisher Information Pruning** (including an ablation comparing **Hard Pruning** vs. **Synaptic Reset**) and audit all models across three distinct regimes:
 1. **Output Space (`evaluate.py`):** Retain/Forget Accuracy, Jensen-Shannon (JS) Divergence against a Retrained-from-Scratch oracle, and Confusion Matrices.
