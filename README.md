@@ -30,8 +30,8 @@ We use a 4-layer Convolutional Neural Network (`model.py`, **206,922 trainable p
 We benchmark four unlearning configurations against the **Original Model** (trained on all 10 digits) and the **Retrained Oracle** (trained from scratch exclusively on $\mathcal{D}_r$):
 
 ### A. Gradient Ascent (`grad_asc`)
-### A. Gradient Ascent (`grad_asc`)
-Maximizes Cross-Entropy loss on $\mathcal{D}_f$ ($\mathcal{L} = -\text{CE}(f(x_f), y_f)$) while alternating with standard gradient descent steps on $\mathcal{D}_r$ using separate Adam optimizers (`lr=1e-4`) to prevent catastrophic forgetting. Uses batch-level early stopping (`stop_acc=0.01`, triggered at batch 72) to halt destructive updates before retain utility collapses.
+Maximizes Cross-Entropy loss on $D_f$ $(L = -\text{CE}(f(x_f), y_f))$ while alternating with standard gradient descent steps on $D_r$ using separate Adam optimizers (`lr=1e-4`) to prevent catastrophic forgetting. Uses batch-level early stopping (`stop_acc=0.01`, triggered at batch 72) to halt destructive updates before retain utility collapses.
+
 ### B. Bad Teacher Distillation (`bad_teacher`)
 Following *Chundawat et al. (AAAI 2023)*, a student model (initialized from the original weights) is trained simultaneously via KL-Divergence against two teachers:
 * **On $\mathcal{D}_r$ (Good Teacher):** Minimizes $D_{\text{KL}}(P_{\text{good}}(x_r) \parallel P_{\text{student}}(x_r))$ against a frozen copy of the original model to preserve retain-class boundaries.
